@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="icon" href="https://bryantieu.github.io/KP/favicon.ico?v=2" />
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GW2KP</title>
+    <meta name="description" content="A simple legendary insight / killing proof generator for raids in Guild wars 2">
+
+    <link rel="stylesheet" href="bulma.css">
+
+
+    <script>
+
+        //defining various killing proof
+        const codes = {
+            "Fractal of the Mist CM" : "4f3f0100",
+            "W1 Vale Gurdian" : "892f0100",
+            "W1 Gorseval" : "b72f0100",
+            "W1 Sabetha" : "a02f0100",
+            "W2 Matthaias" : "6f2f0100",
+            "W2 Sloth" : "8a2f0100",
+            "W3 KC" : "36340100",
+            "W3 Xera" : "5e340100",
+            "W4 Carin" : "ef3a0100",
+            "W4 Murssat" : "8d390100",
+            "W4 Samarog" : "d7380100",
+            "W4 Demios" : "9e3a0100",
+            "W5 Desmina" : "e94f0100",
+            "W5 Statue" : "284f0100",
+            "W5 Dhuum" : "814e0100",
+            "W6 CA" : "df590100",
+            "W6 Twin" : "1c5b0100",
+            "W6 Qadim" : "455a0100",
+            "W7 Sabir" : "86640100",
+            "W7 Adina" : "6e640100",
+            "W7 Quadim" : "27640100",
+            "Legendary Insight" : "f62d0100",
+        }
+
+
+        function HexToChatCode(pStr) {
+        tempstr = '';
+        for (b = 0; b < pStr.length; b = b + 2) {
+            tempstr += String.fromCharCode(parseInt(pStr.substr(b, 2), 16));
+        }
+        return "[&"+ btoa(tempstr) + "]";
+    }
+
+
+
+        function getCode(){
+            selected = document.querySelector("#kp")
+            kp = selected.options[selected.selectedIndex].text
+            for (const [key, value] of Object.entries(codes)){
+                if (kp == key){
+                    var selectedKP = value
+                    
+                }
+            }
+            console.log(selectedKP)
+            amount = document.querySelector('#number').value
+            if ( amount == 0 || amount > 250 || amount == null){
+                error = document.querySelector("#error")
+                error.classList.remove("is-hidden")
+                setTimeout(() => {
+                    error.classList.add("is-hidden")
+                },2000);
+                return
+            }
+            console.log(typeof amount)
+            let x = Number(amount).toString(16)
+            x = x.length < 2? "0" + x : x;
+            let li_hexed = "02"+x+selectedKP
+            let chat_code = HexToChatCode(li_hexed)
+            console.log(chat_code)
+            document.querySelector("#result").innerHTML = chat_code
+        }
+
+        console.log(getCode(20,sabir))
+    </script>
+
+
+</head>
+<body class="has-background-black-bis ">
+
+
+    <div class="container px-5 pt-7 ">
+        <div class="columns is-centered">
+            <dic class="column is-half has-text-centered">
+                    <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/4d795169-e985-4771-8b03-968b9b291e54/d4kp318-20a792ff-d9f8-46f9-a612-40a4cf983f81.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzRkNzk1MTY5LWU5ODUtNDc3MS04YjAzLTk2OGI5YjI5MWU1NFwvZDRrcDMxOC0yMGE3OTJmZi1kOWY4LTQ2ZjktYTYxMi00MGE0Y2Y5ODNmODEucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.0Z4CysCr20GmTL4aJB0COGfipyKIfsW_r0KpcYLXd0M" alt="" style="max-width: 60%;">
+
+                <p class="is-size-3 has-text-weight-bold has-text-grey">Select KP/LI Amount</p>
+            </dic>
+        </div>
+        
+        <br></br>
+
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <div class="field">
+                    <label class="label has-text-grey"> Kill Proof : </label>
+                    <div class="select is-link is-rounded is-fullwidth">
+                        <select name="" id="kp" >
+                            <option>Legendary Insight</option>
+                            <option>Fractal of the Mist CM</option>
+                            <option>W1 Vale Gurdian</option>
+                            <option>W1 Gorseval</option>
+                            <option>W1 Sabetha</option>
+                            <option>W2 Sloth</option>
+                            <option>W2 Matthaias</option>
+                            <option>W3 KC</option>
+                            <option>W3 Xera</option>
+                            <option>W4 Carin</option>
+                            <option>W4 Murssat</option>
+                            <option>W4 Samarog</option>
+                            <option>W4 Demios</option>
+                            <option>W5 Desmina</option>
+                            <option>W5 Statue</option>
+                            <option>W5 Dhuum</option>
+                            <option>W6 CA</option>
+                            <option>W6 Twin</option>
+                            <option>W6 Qadim</option>
+                            <option>W7 Sabir</option>
+                            <option>W7 Adina</option>
+                            <option>W7 Quadim</option>
+                        </select>
+                    </div>
+                </div>
+            </div>     
+        </div>
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <div class="field">
+                    <label for="" class="label has-text-grey">Quantity:</label>
+                    <div class=" is-danger is-fullwidth">
+                        <input type="number" name="" id="number" class="input is-rounded is-link" value="1">
+                    </div>
+                </div>
+                <div class=" is-danger notification is-block py-2 is-dark is-hidden" id="error">The quantity must be a number between 1-250.</div>
+                <div class=" mt-6">
+                    <a href="#" onclick="getCode()" class="button is-normal is-link is-rounded has-text-centered is-block has-text-weight-bold" id="generate">Generate</a>
+                    
+                    <label class="label mt-5 is-medium has-text-centered is-dark">
+                        <code class="code has-background-black-bis is-size-3" id="result"> Your KP Will Appear Here </code>
+                    </label>
+                    
+                </div>
+                    
+            </div>    
+
+        </div>
+    </div>
+    
+    <br></br>
+    
+<footer class="footer has-background-black-bis">
+  <div class="content has-text-centered has-background-black-bis ">
+    <p class = "is-size-7 has-text-grey ">
+      <strong> GW2GetKP </strong> by UwU. The source code is licensed
+      <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+      is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+    </p>
+  </div>
+</footer>
+           
+</body>
